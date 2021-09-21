@@ -1,0 +1,40 @@
+﻿@model MembershipSystemWithIdentity.ViewModels.LoginViewModel
+
+@{
+    ViewData["Title"] = "LogIn";
+}
+
+
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <h4>Giriş Yap</h4>
+        <hr />
+        <form asp-action="LogIn" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="checkbox" asp-for="RememberMe" /> Beni Hatırla
+            </div>
+            <div class="form-group" style="width:100%">
+                <input type="submit" value="Giriş Yap" class="btn btn-primary" style="width:100%"/>
+            </div>
+        </form>
+        <div style="display: flex; flex-direction: column;">
+            <a class="btn btn-info mt-2" asp-action="GoogleLogIn">Google İle Giriş Yap</a>
+            <a class="btn btn-info mt-2" asp-action="FacebookLogIn">FaceBook İle Giriş Yap</a>
+            <a class="btn btn-info mt-2" asp-action="MicrosoftLogIn">Microsoft İle Giriş Yap</a>
+
+            <a class="btn btn-link mt-2" asp-action="ResetPassword">Şifremi Unuttum</a>
+        </div>
+    </div>
+</div>
+
