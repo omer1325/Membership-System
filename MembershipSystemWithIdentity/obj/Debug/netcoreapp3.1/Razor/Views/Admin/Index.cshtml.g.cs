@@ -26,8 +26,15 @@ using MembershipSystemWithIdentity.ViewModels;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 5 "C:\Users\omer\source\repos\MembershipSystemWithIdentity\MembershipSystemWithIdentity\Views\_ViewImports.cshtml"
+using MembershipSystemWithIdentity.Enums;
+
+#line default
+#line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"69357d70e2481db4c59c3f3dc4d39e16426cae62", @"/Views/Admin/Index.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"27475972a107af752540f2be2325d85edd6de2da", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"e0381a20564b5d42a77c6d30c5f40b8c32f2860f", @"/Views/_ViewImports.cshtml")]
     public class Views_Admin_Index : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     {
         #pragma warning disable 1998

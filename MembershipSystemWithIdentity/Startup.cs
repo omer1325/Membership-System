@@ -1,9 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using MembershipSystemWithIdentity.CustomValidation;
 using MembershipSystemWithIdentity.Models;
+using MembershipSystemWithIdentity.Service;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -35,6 +33,12 @@ namespace MembershipSystemWithIdentity
             {
                 opts.UseSqlServer(configuration["ConnectionStrings:DefaultConnectionStrings"]);
             });
+
+            //AppSettings içindeki deðerleri TwoFactorOptions class'ý üzerinden okuyoruz.
+            services.Configure<TwoFactorOptions>(configuration.GetSection("TwoFactorOptions"));
+            services.AddScoped<TwoFactorService>();
+            services.AddScoped<EmailSender>();
+            services.AddScoped<SmsSender>();
 
             services.AddTransient<IAuthorizationHandler, ExpireDateExchangeHandler>();
 
@@ -76,6 +80,7 @@ namespace MembershipSystemWithIdentity
                     opts.ClientId = configuration["Authentication:Microsoft:ClientId"];
                     opts.ClientSecret = configuration["Authentication:Microsoft:ClientSecret"];
                 });
+
 
             services.AddIdentity<AppUser, AppRole>(opts =>
             {
@@ -119,21 +124,32 @@ namespace MembershipSystemWithIdentity
             //Her request isteðinde cookie oluþurken benim class'ýmýnda çalýþmasýnýda istiyorum.
             services.AddScoped<IClaimsTransformation, ClaimProvider.ClaimProvider>();
 
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+                options.Cookie.Name = "MainSession";
+            });
+
             services.AddMvc(); 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-
-            // Sayfada hata aldýðýmýzda o hata ile ilgili açýklayýcý bilgiler sunar
-            app.UseDeveloperExceptionPage();
+            if (env.IsDevelopment())
+            {
+                // Sayfada hata aldýðýmýzda o hata ile ilgili açýklayýcý bilgiler sunar
+                app.UseDeveloperExceptionPage();
+                app.UseBrowserLink();
+            }
+                     
             // Boþ content döndüðünde bize hatanýn nerede olduðunu gösteren Status Code'larýný döner
             app.UseStatusCodePages();
             // JS gibi CSS gibi dosyalarýn yüklenebilmesini saðlar
             app.UseStaticFiles();
             // Identity kütüphanesi kullanacaðýmýz için bunu ekledik
             app.UseAuthentication();
+            app.UseSession();
 
             app.UseMvcWithDefaultRoute();
 

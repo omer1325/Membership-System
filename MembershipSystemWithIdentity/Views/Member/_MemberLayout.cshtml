@@ -5,16 +5,13 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
 
-    <script src="~/lib/jquery/jquery.js"></script>
-    <script src="~/lib/jquery-validate/jquery.validate.js"></script>
-    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
     <link href="~/lib/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
 </head>
 <body>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <a class="navbar-brand" href="#">Bıdıbıdı</a>
+            <a class="navbar-brand" asp-controller="Home" asp-action="Index">Üyelik Sistemi</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -24,13 +21,13 @@
                         <a class="nav-link" asp-action="Index" asp-controller="Member">Üye Ana Sayfa</a>
                     </li>
                     <li class="nav-item">
-                        <a class="btn btn-info" asp-action="Index" asp-controller="Admin">Admin Ana Sayfa</a>
+                        <a class="btn btn-info mr-1" asp-action="Index" asp-controller="Admin">Admin Ana Sayfa</a>
                     </li>
                     <li class="nav-item">
-                        <a class="btn btn-info" asp-action="Editor" asp-controller="Member">Editör Ana Sayfa</a>
+                        <a class="btn btn-info  mr-1" asp-action="Editor" asp-controller="Member">Editör Ana Sayfa</a>
                     </li>
                     <li class="nav-item">
-                        <a class="btn btn-info" asp-action="Manager" asp-controller="Member">Manager Ana Sayfa</a>
+                        <a class="btn btn-info  mr-1" asp-action="Manager" asp-controller="Member">Manager Ana Sayfa</a>
                     </li>
                 </ul>
             </div>
@@ -53,9 +50,18 @@
 
                 <a class="btn btn-info mt-2" asp-action="PasswordChange" asp-controller="Member">Şifre Değiştirme</a>
                 <a class="btn btn-info mt-2" asp-action="UserEdit" asp-controller="Member">Bilgi Güncelleme</a>
+                <a class="btn btn-success mt-2" asp-action="TwoFactorAuth" asp-controller="Member">İki Adımlı Kimlik Doğrulama</a>
                 <a class="btn btn-info mt-2" asp-action="Logout" asp-controller="Member" asp-route-returnUrl="/Home/Index">Çıkış Yap</a>
             </div>
         </div>
     </div>
+
+
+    <script src="~/lib/jquery/jquery.js"></script>
+    <script src="~/lib/jquery-validate/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="~/lib/qrcode.js"></script>
+
+    @RenderSection("Scripts", required:false)
 </body>
 </html>
